@@ -3,11 +3,11 @@
 using namespace std;
 
 circle67::circle67() {
-    cout << "\n***±¸ °è»ê±â Á¢¼Ó***" << endl;
+    cout << "\n***å¤‡ æ‹Œé­‚æ‰ ç«‹åŠ ***" << endl;
 }
 
 circle67::~circle67() {
-    cout << "\n±¸ °è»ê±â Á¾·á...\n\n" << endl;
+    cout << "\nå¤‡ æ‹Œé­‚æ‰ è¾†ä¸°...\n\n" << endl;
 }
 
 double circle67::calculateVolume(double radius) {
