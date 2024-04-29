@@ -2,19 +2,19 @@
 #include <iostream>
 using namespace std;
 
-//»ı¼ºÀÚ
+//ìƒì„±ì
 circle12::circle12() {
-    cout << "\n***Æò¸é ¿ø °è»ê±â Á¢¼Ó***" << endl;
+    cout << "\n***í‰ë©´ ì› ê³„ì‚°ê¸° ì ‘ì†***" << endl;
 }
-//¼Ò¸êÀÚ
+//ì†Œë©¸ì
 circle12::~circle12() {
-    cout << "\nÆò¸é ¿ø °è»ê±â Á¾·á...\n\n\n";
+    cout << "\ní‰ë©´ ì› ê³„ì‚°ê¸° ì¢…ë£Œ...\n\n\n";
 }
-//¿ø ³ĞÀÌ °è»ê
+//ì› ë„“ì´ ê³„ì‚°
 double circle12::calculateArea(double radius) {
     return PI * radius * radius;
 }
-//¿ø µÑ·¹ °è»ê
+//ì› ë‘˜ë ˆ ê³„ì‚°
 double circle12::calculateCircumference(double radius) {
     return 2 * PI * radius;
 }
