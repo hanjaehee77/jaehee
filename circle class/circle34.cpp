@@ -3,11 +3,11 @@
 using namespace std;
 
 circle34::circle34() {
-    cout << "\n***¿ø±âµÕ °è»ê±â Á¢¼Ó***" << endl;
+    cout << "\n***ì›ê¸°ë‘¥ ê³„ì‚°ê¸° ì ‘ì†***" << endl;
 }
 
 circle34::~circle34() {
-    cout << "\n¿ø±âµÕ °è»ê±â Á¾·á...\n\n" << endl;
+    cout << "\nì›ê¸°ë‘¥ ê³„ì‚°ê¸° ì¢…ë£Œ...\n\n" << endl;
 }
 
 double circle34::calculateVolume(double radius, double height) {
