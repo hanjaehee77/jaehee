@@ -3,11 +3,11 @@
 using namespace std;
 
 circle5::circle5() { 
-    cout << "\n***¿ø»Ô °è»ê±â Á¢¼Ó***" << endl;
+    cout << "\n***ì›ë¿” ê³„ì‚°ê¸° ì ‘ì†***" << endl;
 }
 
 circle5::~circle5() {
-    cout << "\n¿ø»Ô °è»ê±â Á¾·á...\n\n" << endl;
+    cout << "\nì›ë¿” ê³„ì‚°ê¸° ì¢…ë£Œ...\n\n" << endl;
 }
 
 double circle5::calculateVolume(double radius, double height) {
