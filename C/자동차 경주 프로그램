@@ -1,0 +1,43 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <time.h>
+
+int car1_pos = 1, car2_pos = 1;
+
+void disp_car(int car_number, int pos) {
+	int i;
+	for (i = 0; i < pos - 1; i++) printf("*");
+	printf("%d", car_number);
+	for (i = 0; i < 30 - pos; i++) printf("*");
+	printf("Goal%d\n", car_number);
+}
+
+void move_car() {
+	getch();
+	system("cls");
+
+	if (car1_pos > 30)	car1_pos = 30;
+	if (car2_pos > 30)	car2_pos = 30;
+	disp_car(1, car1_pos);
+	disp_car(2, car2_pos);
+}
+
+int main(void) {
+	
+	int i;
+
+	disp_car(1, car1_pos);
+	disp_car(2, car2_pos);
+
+	srand(time(NULL));
+	printf("Enter키를 누르면 자동차가 움직입니다");
+	for (i = 0; i < 30; i++) {
+		car1_pos += 1 + rand() % 6;
+		move_car();
+		if (car1_pos == 30) { printf("Car1 승리!\n"); break; }
+		car2_pos += 1 + rand() % 6;
+		move_car();
+		if (car2_pos == 30) { printf("Car2 승리!\n"); break; }
+	}
+	return 0;
+}
