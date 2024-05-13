@@ -54,13 +54,28 @@ int main() {
         switch (choice) {
         case 1: {
             cout << "\n***** 회원가입을 진행합니다 *****\n\n";
-            string name, phoneNumber;
+            string name, phoneNumber; 
             cout << "이름을 입력하세요: ";
-            cin >> name;
+            cin >> name; 
             cout << "전화번호를 입력하세요: ";
-            cin >> phoneNumber;
-            members.push_back(Information(name, phoneNumber));
-            cout << "\n회원가입이 완료되었습니다.\n" << endl;
+            cin >> phoneNumber;  
+
+            // 이미 등록된 회원인지 확인
+            bool alreadyRegistered = false; 
+            for (const auto& member : members) {
+                if (member.getName() == name && member.getPhoneNumber() == phoneNumber) { 
+                    alreadyRegistered = true; 
+                    break;  
+                }
+            }
+
+            if (alreadyRegistered) { 
+                cout << "\n이미 등록된 회원 정보입니다.\n" << endl; 
+            }
+            else {
+                members.push_back(Information(name, phoneNumber)); 
+                cout << "\n회원가입이 완료되었습니다.\n" << endl; 
+            } 
             break;
         }
         case 2: {
@@ -83,37 +98,60 @@ int main() {
         case 3: {
             cout << "\n***** 회원 정보 수정을 진행합니다 *****\n\n";
             string name, phoneNumber;
-            cout << "현재 회원 정보\n";
+            cout << "현재 회원 정보\n\n";
             cout << "이름 : ";
             cin >> name;
             cout << "전화번호 : ";
             cin >> phoneNumber;
+            Information info("", "");  
+            if (!info.Check(&members, &name, &phoneNumber)) { 
+                cout << "\n회원 정보가 일치하지 않습니다.\n\n";
+
+            }
             bool found = false;
             for (auto& member : members) {
                 if (member.Check(&members, &name, &phoneNumber)) {
                     string newName, newPhoneNumber;
-                    cout << "새로운 회원 정보\n";
+                    cout << "\n\n새로운 회원 정보\n\n";
                     cout << "이름 : ";
                     cin >> newName;
                     cout << "전화번호 : ";
                     cin >> newPhoneNumber;
-                    member.setName(newName);
-                    member.setPhoneNumber(newPhoneNumber);
-                    cout << "회원 정보 수정이 완료되었습니다." << endl;
-                    found = true;
-                    break;
-                }
-                else {
-                    cout << "회원 정보가 일치하지 않습니다.\n";
-                    break;
-                }
-            }
+                    bool alreadyRegistered = false; 
+                    for (const auto& member : members) { 
+                        if (member.getName() == newName && member.getPhoneNumber() == newPhoneNumber) { 
+                            alreadyRegistered = true;
+                            break;
+                        }
+                    }
+                     
+                    if (alreadyRegistered) { 
+                        cout << "\n이미 등록된 회원 정보입니다.\n" << endl; 
+                        found = true; 
+                    }
+                    else {
+                        member.setName(newName); 
+                        member.setPhoneNumber(newPhoneNumber); 
+                        cout << "\n회원 정보 수정이 완료되었습니다.\n" << endl; 
+                        found = true; 
+                        
+                    }
+                    
+                    break; 
+                   
+
+
+                    
+                } break;
+                
+                
+            } break;
         }
         case 4: {
-            cout << "프로그램을 종료합니다." << endl;
+            cout << "\n프로그램을 종료합니다." << endl;
             break;
         default:
-            cout << "정확한 번호를 입력해주세요." << endl;
+            cout << "\n정확한 번호를 입력해주세요.\n" << endl;
             break;
         }
 
