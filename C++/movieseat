@@ -1,0 +1,134 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int ROWS = 10;
+const int COLS = 6;
+
+int seats[10][6];   // 10행 6열의 좌석 배열 선언
+int adultcount = 0;
+int childcount = 0;
+int changecount = 0;
+int totalprice = 0;
+
+// 좌석 배열 초기화 함수
+void chogihwaseats() {
+	for (int i = 0; i < 10; ++i) {
+		for (int j = 0; j < 6; ++j) {
+			seats[i][j] = '0';  // 모든 좌석을 '0'으로 초기화 (빈 좌석을 의미)
+		}
+	}
+}
+// 현재 좌석 상태를 출력하는 함수
+void displayseats() {
+	cout << "\n1 2 3 4 5 6\n";  // 열 번호 출력
+	cout << "-----------\n\n";
+	for (int i = 0; i < ROWS; ++i) {
+		for (int j = 0; j < COLS; ++j) {
+			cout << seats[i][j] << " ";  // 각 좌석의 상태 출력
+		}
+		cout << endl;
+	}
+}
+
+
+int main() {
+
+	int choice;
+	while (true) { // 무한 반복을 위해 while을 써서 반복 출력한다
+
+
+		cout << "\n**영화 예약 시스템**" << endl << endl;
+		cout << "1. 좌석 예약" << endl;
+		cout << "2. 예약 변경" << endl;
+		cout << "3. 프로그램 종료" << endl;
+		cout << "번호를 입력하세요 : ";
+		cin >> choice;
+
+
+		switch (choice) {
+		case 1:
+			displayseats(); // 현재 좌석 상태 나타내는 함수 호출
+			int currentadultcount, currentchildcount;
+			cout << "\n성인(14000원) : ";
+			cin >> currentadultcount;
+			cout << "\n청소년(11000원) : ";
+			cin >> currentchildcount;
+
+			// 입력된 성인과 청소년 인원 수를 누적시켜주는 코드다
+			adultcount += currentadultcount;
+			childcount += currentchildcount;
+
+			// 성인이랑 청소년 인원 수를 총 금액에 누적 시킨다
+			totalprice += currentadultcount * 14000 + currentchildcount * 11000;
+
+
+			// 성인이랑 청소년 인원 수를 더한 값만큼 좌석 예약을 반복해준다 
+			for (int i = 0; i < currentadultcount + currentchildcount; ++i) {
+				int col, row;
+				cout << "\n몇열, 몇번째 좌석을 예약하시겠습니까?\n";
+				cin >> col >> row;
+
+				// 입력 받은 좌석이 유효한지 확인한다
+				if (row >= 1 && row <= ROWS && col >= 1 && col <= COLS) {
+					// 좌석이 이미 예약된 좌석인지 확인하는 코드
+					if (seats[row - 1][col - 1] == 0) {
+						// 좌석 예약 성공 시 해당 좌석을 예약됨으로 표시합니다.
+						seats[row - 1][col - 1] = 1;
+						cout << "\n예약되었습니다." << endl;
+					}
+					else {
+						cout << "\n이미 예약되었습니다. 다른 자리를 선택하세요\n";
+						--i;
+					}
+				}
+				else {
+					cout << "\n좌석 범위를 벗어났습니다. 다시 선택해주세요." << endl;
+					--i; // 좌석 범위를 벗어난 경우, 다시 입력 받기 위해 인덱스를 조정합니다.
+				}
+			}
+			break;
+		case 2:
+			displayseats();
+			cout << "바꿀 좌석의 갯수를 입력하세요 : ";
+			cin >> changecount;
+
+			//바꿀 좌석의 수만큼 반복하여 좌석 변경을 진행하는 코드
+			for (int i = 0; i < changecount; ++i) {
+				int currentRow, currentCol, changeRow, changeCol;
+				cout << "\n현재 좌석과 바꿀 좌석을 입력하세요";
+				cout << "\n현재 좌석(N열, M번째): ";
+				cin >> currentCol >> currentRow;
+				cout << "\n변경 좌석(n열, m번째):";
+				cin >> changeCol >> changeRow;
+
+				if (currentRow >= 1 && currentRow <= ROWS && currentCol >= 1 && currentCol <= COLS &&
+					changeRow >= 1 && changeRow <= ROWS && changeCol >= 1 && changeCol <= COLS) {
+					if (seats[currentRow - 1][currentCol - 1] == 1 && seats[changeRow - 1][changeCol - 1] == 0) {
+						seats[currentRow - 1][currentCol - 1] = 0; // 현재 좌석을 취소 처리
+						seats[changeRow - 1][changeCol - 1] = 1;  // 변경할 좌석을 예약 처리
+						cout << "좌석 변경이 완료되었습니다." << endl;
+					}
+					else {
+						cout << "이미 예약되었습니다. 다른 자리를 선택하세요" << endl;
+						--i; // 다시 좌석을 선택하도록 반복 인덱스를 조정
+					}
+				}
+				else {
+					cout << "좌석 번호를 다시 입력해주세요." << endl;
+					--i; // 좌석 범위를 벗어났을 경우 다시 입력 받기 위해 반복 인덱스를 조정
+				}
+			}
+			break;
+		case 3:
+		{
+			int totalprice = adultcount * 14000 + childcount * 11000; // 예약한 인원의 총 금액을 계산
+			cout << "총 " << totalprice << "원 입니다." << endl; // 총 금액을 출력
+
+			return 0; // 프로그램을 종료
+		}
+		break;
+		}
+		displayseats();
+	}
+}
